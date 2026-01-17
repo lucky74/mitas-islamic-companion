@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: oklch(99% 0.005 160);
+    --foreground: oklch(20% 0.02 160);
+    --card: oklch(100% 0 0);
+    --card-foreground: oklch(20% 0.02 160);
+    --popover: oklch(100% 0 0);
+    --popover-foreground: oklch(20% 0.02 160);
+    --primary: oklch(55% 0.18 165);
+    --primary-foreground: oklch(100% 0 0);
+    --secondary: oklch(92% 0.03 165);
+    --secondary-foreground: oklch(25% 0.05 165);
+    --muted: oklch(95% 0.01 165);
+    --muted-foreground: oklch(50% 0.02 165);
+    --accent: oklch(90% 0.05 80);
+    --accent-foreground: oklch(30% 0.05 80);
+    --destructive: oklch(55% 0.22 25);
+    --destructive-foreground: oklch(100% 0 0);
+    --border: oklch(88% 0.02 165);
+    --input: oklch(88% 0.02 165);
+    --ring: oklch(55% 0.18 165);
+    --radius: 0.75rem;
+    --doa-pagi: oklch(55% 0.16 160);
+    --doa-petang: oklch(60% 0.14 75);
+    --chart-1: oklch(55% 0.18 165);
+    --chart-2: oklch(60% 0.14 75);
+    --chart-3: oklch(65% 0.12 200);
+    --chart-4: oklch(50% 0.15 140);
+    --chart-5: oklch(55% 0.13 100);
+  }
+
+  .dark {
+    --background: oklch(18% 0.02 165);
+    --foreground: oklch(95% 0.01 165);
+    --card: oklch(20% 0.02 165);
+    --card-foreground: oklch(95% 0.01 165);
+    --popover: oklch(20% 0.02 165);
+    --popover-foreground: oklch(95% 0.01 165);
+    --primary: oklch(60% 0.18 165);
+    --primary-foreground: oklch(100% 0 0);
+    --secondary: oklch(25% 0.03 165);
+    --secondary-foreground: oklch(90% 0.02 165);
+    --muted: oklch(25% 0.02 165);
+    --muted-foreground: oklch(65% 0.02 165);
+    --accent: oklch(30% 0.05 80);
+    --accent-foreground: oklch(90% 0.03 80);
+    --destructive: oklch(60% 0.22 25);
+    --destructive-foreground: oklch(100% 0 0);
+    --border: oklch(28% 0.02 165);
+    --input: oklch(28% 0.02 165);
+    --ring: oklch(60% 0.18 165);
+    --doa-pagi: oklch(65% 0.16 160);
+    --doa-petang: oklch(70% 0.14 75);
+    --chart-1: oklch(60% 0.18 165);
+    --chart-2: oklch(65% 0.14 75);
+    --chart-3: oklch(70% 0.12 200);
+    --chart-4: oklch(55% 0.15 140);
+    --chart-5: oklch(60% 0.13 100);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .font-arabic {
+    font-family: 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 2;
+  }
+
+  [dir="rtl"] {
+    direction: rtl;
+  }
+
+  [dir="ltr"] {
+    direction: ltr;
+  }
+
+  main {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 1s ease-out;
+  }
+
+  .audio-player-safe-area {
+    padding-bottom: 6rem;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
