@@ -21,10 +21,10 @@ export function About() {
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/generated/mitas-logo-header.dim_120x120.png"
+              src="/mitas-logo.png"
               alt="MITAS Logo"
               className="h-10 w-10 rounded-full border-2 border-emerald-700 shadow-lg"
-            />
+            <div>
             <div>
               <h1 className="text-xl font-bold text-white">{t.about.title}</h1>
               <p className="text-xs text-emerald-100">{t.about.appName}</p>
@@ -40,7 +40,7 @@ export function About() {
         <div className="mb-8 flex justify-center">
           <div className="rounded-full bg-white p-4 shadow-xl dark:bg-slate-800">
             <img
-              src="/assets/generated/mitas-logo-about-contrast.dim_120x120.png"
+              src="/mitas-logo.png"
               alt="MITAS Logo"
               className="h-32 w-32 rounded-full border-2 border-emerald-700 shadow-lg"
             />
@@ -122,4 +122,3 @@ export function About() {
     </div>
   );
 }
-

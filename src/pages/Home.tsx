@@ -92,7 +92,7 @@ export function Home() {
 
           <div className="mb-4 flex items-center justify-center gap-3">
             <img
-              src="/assets/generated/mitas-logo-header.dim_120x120.png"
+              src="/mitas-logo.png"
               alt="MITAS Logo"
               className="h-12 w-12 rounded-full border-2 border-emerald-700 object-contain shadow-lg"
             />
@@ -261,4 +261,3 @@ export function Home() {
     </div>
   );
 }
-

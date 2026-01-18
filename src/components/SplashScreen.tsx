@@ -9,7 +9,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-emerald-600 via-teal-500 to-amber-500 text-white">
       <div className="animate-scaleIn mb-6 rounded-full bg-white/10 p-6 shadow-elevation-3">
         <img
-          src="/assets/generated/app-icon.dim_512x512.png"
+          src="/mitas-logo.png"
           alt="MITAS Logo"
           className="h-20 w-20"
         />
@@ -22,4 +22,3 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     </div>
   );
 }
-
