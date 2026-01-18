@@ -82,11 +82,11 @@ function DoaPagiPetangSection() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg bg-gradient-to-br from-emerald-100 to-amber-100 p-4 shadow-md dark:from-emerald-900/30 dark:to-amber-900/30">
-        <h3 className="mb-2 text-center text-lg font-bold text-emerald-900 dark:text-emerald-100">
+      <div className="rounded-lg border border-amber-500/40 bg-gradient-to-br from-black/80 via-emerald-950/90 to-amber-900/80 p-4 shadow-md">
+        <h3 className="mb-2 text-center text-lg font-bold text-amber-100">
           {t.doa.morningEvening}
         </h3>
-        <p className="text-center text-sm text-emerald-800 dark:text-emerald-200">
+        <p className="text-center text-sm text-emerald-100/90">
           {t.doa.morningEveningDesc}
         </p>
       </div>
@@ -95,17 +95,17 @@ function DoaPagiPetangSection() {
         value={activeDoaTab}
         onValueChange={(v) => setActiveDoaTab(v as 'pagi' | 'petang')}
       >
-        <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-amber-100 dark:from-emerald-900/30 dark:to-amber-900/30">
+        <TabsList className="grid w-full grid-cols-2 border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-amber-900/80">
           <TabsTrigger
             value="pagi"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-md"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-md"
           >
             <Sunrise className="mr-2 h-4 w-4" />
             {t.doa.morning} 🌅
           </TabsTrigger>
           <TabsTrigger
             value="petang"
-            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-600 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-md"
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-600 data-[state=active]:to-emerald-500 data-[state=active]:text-white data-[state=active]:shadow-md"
           >
             <Sunset className="mr-2 h-4 w-4" />
             {t.doa.evening} 🌇
@@ -120,23 +120,23 @@ function DoaPagiPetangSection() {
                   key={index}
                   className={`overflow-hidden shadow-md ${
                     isPagi
-                      ? 'border-2 border-emerald-300 bg-gradient-to-br from-white to-emerald-50/50 dark:border-emerald-700 dark:from-card dark:to-emerald-950/20'
-                      : 'border-2 border-amber-300 bg-gradient-to-br from-white to-amber-50/50 dark:border-amber-700 dark:from-card dark:to-amber-950/20'
+                      ? 'border-2 border-emerald-500/60 bg-gradient-to-br from-black/85 via-emerald-950/95 to-emerald-900/90'
+                      : 'border-2 border-amber-500/60 bg-gradient-to-br from-black/85 via-amber-950/95 to-emerald-900/90'
                   }`}
                 >
                   <CardHeader
                     className={`pb-3 ${
                       isPagi
-                        ? 'bg-emerald-100/50 dark:bg-emerald-900/20'
-                        : 'bg-amber-100/50 dark:bg-amber-900/20'
+                        ? 'bg-emerald-900/40'
+                        : 'bg-amber-900/40'
                     }`}
                   >
                     <CardTitle className="flex items-center gap-3 text-base">
                       <div
                         className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold text-white shadow-md ${
                           isPagi
-                            ? 'bg-gradient-to-br from-emerald-600 to-emerald-500'
-                            : 'bg-gradient-to-br from-amber-600 to-amber-500'
+                            ? 'bg-gradient-to-br from-emerald-600 to-amber-500'
+                            : 'bg-gradient-to-br from-amber-500 to-emerald-500'
                         }`}
                       >
                         {index + 1}
@@ -144,9 +144,7 @@ function DoaPagiPetangSection() {
                       {dua.title && (
                         <span
                           className={`flex-1 font-semibold ${
-                            isPagi
-                              ? 'text-emerald-900 dark:text-emerald-100'
-                              : 'text-amber-900 dark:text-amber-100'
+                            isPagi ? 'text-emerald-50' : 'text-amber-50'
                           }`}
                         >
                           {dua.title}
@@ -158,8 +156,8 @@ function DoaPagiPetangSection() {
                     <div
                       className={`rounded-lg p-4 ${
                         isPagi
-                          ? 'bg-emerald-100/50 dark:bg-emerald-900/20'
-                          : 'bg-amber-100/50 dark:bg-amber-900/20'
+                          ? 'bg-emerald-900/40'
+                          : 'bg-amber-900/40'
                       }`}
                     >
                       <p className="font-arabic text-2xl leading-loose text-foreground">
@@ -222,8 +220,8 @@ export function Doa() {
   const { t } = useI18n();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 via-background to-amber-50/30 pb-20 dark:from-emerald-950/20 dark:via-background dark:to-amber-950/10">
-      <header className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-amber-600 px-6 pb-8 pt-6 text-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60 pb-20 geometric-bg-soft">
+      <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-amber-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
         <div className="absolute inset-0 opacity-10">
           <img
             src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
@@ -238,19 +236,19 @@ export function Doa() {
               <img
                 src="/assets/generated/kaaba-icon-transparent.dim_64x64.png"
                 alt=""
-                className="h-10 w-10 brightness-0 invert"
+                className="h-10 w-10 rounded-full border-2 border-amber-500/70 bg-black/40 p-1 shadow-lg"
               />
-              <h1 className="text-2xl font-bold">{t.doa.title}</h1>
+              <h1 className="text-2xl font-bold text-amber-100">{t.doa.title}</h1>
             </div>
             <LanguageSelector />
           </div>
-          <p className="text-center text-sm opacity-90">{t.doa.subtitle}</p>
+          <p className="text-center text-sm text-emerald-100/90">{t.doa.subtitle}</p>
         </div>
       </header>
 
       <div className="px-6 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-amber-100 dark:from-emerald-900/30 dark:to-amber-900/30">
+          <TabsList className="grid w-full grid-cols-2 border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-amber-900/80">
             <TabsTrigger
               value="pagiPetang"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-amber-600 data-[state=active]:text-white"
@@ -278,27 +276,27 @@ export function Doa() {
                   <AccordionItem
                     key={index}
                     value={`doa-${index}`}
-                    className="rounded-lg border-2 border-emerald-200 bg-gradient-to-r from-white to-emerald-50/50 shadow-md dark:border-emerald-800 dark:from-card dark:to-emerald-950/20"
+                    className="rounded-lg border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-emerald-900/90 shadow-xl"
                   >
                     <AccordionTrigger className="px-4 hover:no-underline">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-teal-600 text-sm font-bold text-white shadow-md">
+                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 text-sm font-bold text-black shadow-md">
                           {index + 1}
                         </div>
-                        <span className="flex-1 text-left font-semibold text-emerald-900 dark:text-emerald-100">
+                        <span className="flex-1 text-left font-semibold text-amber-100">
                           {doa.title}
                         </span>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
                       <div className="space-y-4">
-                        <div className="rounded-lg bg-emerald-100/50 p-4 dark:bg-emerald-900/20">
+                        <div className="rounded-lg bg-emerald-900/40 p-4">
                           <p className="font-arabic text-2xl leading-loose text-foreground">
                             {doa.arabic}
                           </p>
                         </div>
-                        <div className="rounded-lg bg-muted/70 p-4">
-                          <p className="text-sm text-muted-foreground">
+                        <div className="rounded-lg bg-black/60 p-4">
+                          <p className="text-sm text-emerald-100/80">
                             {doa.translation}
                           </p>
                         </div>
@@ -314,4 +312,3 @@ export function Doa() {
     </div>
   );
 }
-

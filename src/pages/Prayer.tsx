@@ -205,9 +205,8 @@ export function Prayer() {
     : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 via-background to-amber-50/30 dark:from-emerald-950/20 dark:via-background dark:to-amber-950/10">
-      {/* Header with gradient and controls */}
-      <header className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 px-6 pb-8 pt-6 text-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60">
+      <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-emerald-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
         <div className="absolute inset-0 opacity-10">
           <img
             src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
@@ -217,17 +216,15 @@ export function Prayer() {
         </div>
         
         <div className="relative">
-          {/* Top bar with title and controls */}
           <div className="mb-6 flex items-center justify-between">
-            <h1 className="text-2xl font-bold">{t.prayer.title}</h1>
+            <h1 className="text-2xl font-bold text-amber-100">{t.prayer.title}</h1>
             <div className="flex items-center gap-2">
               <LanguageSelector />
               <PrayerSourceSelector />
             </div>
           </div>
 
-          {/* GPS Toggle */}
-          <div className="mb-4 flex items-center justify-between rounded-lg bg-white/10 p-3 backdrop-blur-sm">
+          <div className="mb-4 flex items-center justify-between rounded-lg border border-amber-500/40 bg-black/30 p-3 backdrop-blur-sm">
             <Label htmlFor="use-gps" className="flex-1 text-sm font-medium">
               {t.prayer.useGPS}
             </Label>
@@ -240,15 +237,14 @@ export function Prayer() {
             />
           </div>
 
-          {/* City Selector or GPS Coordinates */}
           {!useGeolocation ? (
             <div>
               <label className="mb-2 block text-sm font-medium">{t.prayer.selectCity}</label>
               <Select value={selectedCity} onValueChange={setSelectedCity}>
-                <SelectTrigger className="border-white/20 bg-white/10 text-white hover:bg-white/20">
+                <SelectTrigger className="border-amber-500/40 bg-black/40 text-amber-100 hover:bg-black/60">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="border-emerald-700 bg-emerald-900 dark:border-slate-700 dark:bg-slate-900">
+                <SelectContent className="border-amber-500/40 bg-slate-950">
                   {INDONESIAN_CITIES.map((city) => (
                     <SelectItem 
                       key={city} 
@@ -256,7 +252,7 @@ export function Prayer() {
                       className="text-white hover:bg-emerald-800 focus:bg-emerald-800 dark:text-gray-100 dark:hover:bg-slate-800 dark:focus:bg-slate-800"
                     >
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 flex-shrink-0" />
+                        <MapPin className="h-4 w-4 flex-shrink-0 text-amber-300" />
                         <span>{city}</span>
                       </div>
                     </SelectItem>
@@ -265,7 +261,7 @@ export function Prayer() {
               </Select>
             </div>
           ) : geolocation ? (
-            <div className="rounded-lg bg-white/10 p-3 text-center backdrop-blur-sm">
+            <div className="rounded-lg border border-amber-500/40 bg-black/30 p-3 text-center backdrop-blur-sm">
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
                 <p className="text-sm">
@@ -277,9 +273,9 @@ export function Prayer() {
 
           {/* Hijri Date */}
           {prayerData && (
-            <div className="mt-4 rounded-lg bg-amber-500/20 p-3 text-center backdrop-blur-sm">
-              <p className="mb-1 text-xs font-medium opacity-90">{t.prayer.hijriDate}</p>
-              <p className="text-base font-semibold">
+            <div className="mt-4 rounded-lg border border-amber-500/40 bg-gradient-to-br from-black/80 via-emerald-950/90 to-emerald-900/90 p-3 text-center backdrop-blur-sm">
+              <p className="mb-1 text-xs font-medium text-amber-200">{t.prayer.hijriDate}</p>
+              <p className="text-base font-semibold text-amber-50">
                 {prayerData.date.hijri.day} {prayerData.date.hijri.month.en} {prayerData.date.hijri.year}
               </p>
             </div>
@@ -287,17 +283,16 @@ export function Prayer() {
         </div>
       </header>
 
-      {/* Prayer Times List */}
       <div className="px-6 py-6">
-        <Card className="border-emerald-200 bg-emerald-900/95 shadow-lg dark:border-emerald-800 dark:bg-emerald-950/95">
-          <CardHeader className="border-b border-emerald-700 dark:border-emerald-900">
-            <CardTitle className="text-white dark:text-emerald-100">{t.prayer.todaySchedule}</CardTitle>
+        <Card className="ornament-card ornament-inner-border">
+          <CardHeader className="border-b border-amber-500/40">
+            <CardTitle className="text-amber-100">{t.prayer.todaySchedule}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 p-4">
             {loading ? (
               <>
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg bg-accent/50 p-4">
+                  <div key={i} className="flex items-center justify-between rounded-lg bg-emerald-900/60 p-4">
                     <Skeleton className="h-6 w-20" />
                     <Skeleton className="h-6 w-16" />
                   </div>
@@ -310,13 +305,17 @@ export function Prayer() {
                   className={`flex items-center justify-between gap-3 rounded-lg p-4 transition-all ${
                     prayer.isNext
                       ? 'bg-gradient-to-r from-amber-500/30 to-amber-600/30 ring-2 ring-amber-400'
-                      : 'bg-emerald-800/50 hover:bg-emerald-700/50'
+                      : 'bg-black/40 hover:bg-emerald-900/60'
                   }`}
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-3">
                     <span className="flex-shrink-0 text-2xl">{prayer.icon}</span>
                     <div className="min-w-0">
-                      <span className={`block truncate font-semibold text-white ${prayer.isNext ? 'text-amber-100' : ''}`}>
+                      <span
+                        className={`block truncate font-semibold ${
+                          prayer.isNext ? 'text-amber-100' : 'text-emerald-50'
+                        }`}
+                      >
                         {prayer.name}
                       </span>
                       {prayer.isNext && (
@@ -327,9 +326,11 @@ export function Prayer() {
                       )}
                     </div>
                   </div>
-                  <span className={`flex-shrink-0 text-lg font-bold tabular-nums text-white ${
-                    prayer.isNext ? 'text-amber-100' : ''
-                  }`}>
+                  <span
+                    className={`flex-shrink-0 text-lg font-bold tabular-nums ${
+                      prayer.isNext ? 'text-amber-100' : 'text-emerald-50'
+                    }`}
+                  >
                     {prayer.time}
                   </span>
                 </div>
@@ -338,62 +339,10 @@ export function Prayer() {
           </CardContent>
         </Card>
 
-        {/* Nearby Mosques Section - Only show when using geolocation */}
-        {useGeolocation && geolocation && (
-          <Card className="mt-6 border-emerald-200 bg-emerald-900/95 shadow-lg dark:border-emerald-800 dark:bg-emerald-950/95">
-            <CardHeader className="border-b border-emerald-700 dark:border-emerald-900">
-              <CardTitle className="flex items-center gap-2 text-white dark:text-emerald-100">
-                <MapPin className="h-5 w-5" />
-                {t.prayer.nearbyMosques}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 p-4">
-              {mosquesLoading ? (
-                <>
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="flex items-center justify-between rounded-lg bg-emerald-800/50 p-4">
-                      <Skeleton className="h-6 w-32 bg-emerald-700/50" />
-                      <Skeleton className="h-6 w-20 bg-emerald-700/50" />
-                    </div>
-                  ))}
-                </>
-              ) : nearbyMosques.length > 0 ? (
-                nearbyMosques.map((mosque) => (
-                  <div
-                    key={mosque.id}
-                    className="flex items-center justify-between gap-3 rounded-lg bg-emerald-800/50 p-4 transition-all hover:bg-emerald-700/50"
-                  >
-                    <div className="flex min-w-0 flex-1 items-center gap-3">
-                      <span className="flex-shrink-0 text-2xl">🕌</span>
-                      <div className="min-w-0">
-                        <span className="block truncate font-semibold text-white">
-                          {mosque.name}
-                        </span>
-                        <div className="flex items-center gap-3 text-xs text-emerald-200">
-                          <span>{mosque.distance}m</span>
-                          <div className="flex items-center gap-1">
-                            <Footprints className="h-3 w-3" />
-                            <span>~{mosque.walkingTime} {t.prayer.minutes}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="py-6 text-center text-emerald-200">
-                  <p>{t.prayer.noMosquesFound}</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Qibla Direction Button */}
         <div className="mt-6">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md hover:from-emerald-700 hover:to-teal-700" size="lg">
+              <Button className="w-full bg-gradient-to-r from-amber-500 via-emerald-500 to-emerald-700 text-white shadow-md hover:from-amber-500/90 hover:via-emerald-500/90 hover:to-emerald-700/90" size="lg">
                 <Navigation className="mr-2 h-5 w-5" />
                 {t.prayer.qiblaDirection}
               </Button>
@@ -410,4 +359,3 @@ export function Prayer() {
     </div>
   );
 }
-

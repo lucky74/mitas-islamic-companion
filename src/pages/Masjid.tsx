@@ -131,7 +131,16 @@ export function Masjid() {
                     <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-emerald-600">
                       <MapPin className="h-4 w-4 flex-shrink-0 text-black" />
                     </div>
-                    <span className="text-amber-100">{mosque.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const url = `https://www.google.com/maps/dir/?api=1&destination=${mosque.latitude},${mosque.longitude}`;
+                        window.open(url, '_blank');
+                      }}
+                      className="text-left text-amber-100 underline decoration-amber-400/70 underline-offset-4 hover:text-amber-200"
+                    >
+                      {mosque.name}
+                    </button>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 pt-0">

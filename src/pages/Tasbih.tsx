@@ -57,8 +57,8 @@ export function Tasbih() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 via-background to-teal-50/30 dark:from-emerald-950/20 dark:via-background dark:to-teal-950/10">
-      <header className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-500 to-teal-600 px-6 pb-8 pt-6 text-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60">
+      <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-teal-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
         <div className="absolute inset-0 opacity-10">
           <img
             src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
@@ -73,13 +73,13 @@ export function Tasbih() {
               <img
                 src="/assets/generated/tasbih-icon.dim_64x64.png"
                 alt=""
-                className="h-10 w-10 brightness-0 invert"
+                className="h-10 w-10 rounded-full border-2 border-amber-500/70 bg-black/40 p-1 shadow-lg"
               />
-              <h1 className="text-2xl font-bold">{t.tasbih.title}</h1>
+              <h1 className="text-2xl font-bold text-amber-100">{t.tasbih.title}</h1>
             </div>
             <LanguageSelector />
           </div>
-          <p className="text-center text-sm opacity-90">{t.tasbih.subtitle}</p>
+          <p className="text-center text-sm text-emerald-100/90">{t.tasbih.subtitle}</p>
         </div>
       </header>
 
@@ -87,14 +87,14 @@ export function Tasbih() {
         <div className="mb-4 flex justify-end">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md hover:from-emerald-700 hover:to-teal-700" size="sm">
+              <Button className="bg-gradient-to-r from-amber-500 via-emerald-500 to-teal-600 text-white shadow-md hover:from-amber-500/90 hover:via-emerald-500/90 hover:to-teal-600/90" size="sm">
                 <Plus className="mr-2 h-4 w-4" />
                 {t.tasbih.addCounter}
               </Button>
             </DialogTrigger>
-            <DialogContent className="border-emerald-200 dark:border-emerald-800">
+            <DialogContent className="border-amber-500/40 bg-slate-950">
               <DialogHeader>
-                <DialogTitle className="text-emerald-900 dark:text-emerald-100">
+                <DialogTitle className="text-amber-100">
                   {t.tasbih.newCounter}
                 </DialogTitle>
               </DialogHeader>
@@ -106,7 +106,7 @@ export function Tasbih() {
                     placeholder="Contoh: Istighfar"
                     value={newCounterName}
                     onChange={(e) => setNewCounterName(e.target.value)}
-                    className="border-emerald-200 focus:border-emerald-400 dark:border-emerald-800"
+                    className="border-amber-500/40 bg-black/40 text-amber-100 placeholder:text-emerald-300 focus:border-amber-400"
                   />
                 </div>
                 <div>
@@ -117,12 +117,12 @@ export function Tasbih() {
                     placeholder="33"
                     value={newCounterTarget}
                     onChange={(e) => setNewCounterTarget(e.target.value)}
-                    className="border-emerald-200 focus:border-emerald-400 dark:border-emerald-800"
+                    className="border-amber-500/40 bg-black/40 text-amber-100 placeholder:text-emerald-300 focus:border-amber-400"
                   />
                 </div>
                 <Button
                   onClick={handleAddCounter}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+                  className="w-full bg-gradient-to-r from-amber-500 via-emerald-500 to-teal-600 text-black hover:from-amber-400 hover:via-emerald-500 hover:to-teal-600"
                 >
                   {t.tasbih.add}
                 </Button>
@@ -141,13 +141,13 @@ export function Tasbih() {
                 key={counter.id}
                 className={`overflow-hidden shadow-md ${
                   isComplete
-                    ? 'border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 to-teal-50 dark:border-emerald-600 dark:from-emerald-900/30 dark:to-teal-900/30'
-                    : 'border-emerald-200 bg-white dark:border-emerald-800 dark:bg-card'
+                    ? 'border-2 border-amber-400 bg-gradient-to-br from-black/80 via-emerald-900/80 to-teal-900/80'
+                    : 'border border-amber-500/40 bg-gradient-to-br from-black/80 via-slate-950/90 to-emerald-950/90'
                 }`}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg text-emerald-900 dark:text-emerald-100">
+                    <CardTitle className="text-lg text-amber-100">
                       {counter.name}
                     </CardTitle>
                     <div className="flex gap-2">
@@ -155,7 +155,7 @@ export function Tasbih() {
                         variant="ghost"
                         size="icon"
                         onClick={() => resetTasbihCounter(counter.id)}
-                        className="h-8 w-8 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-700 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
+                        className="h-8 w-8 text-amber-300 hover:bg-amber-900/40 hover:text-amber-200"
                       >
                         <RotateCcw className="h-4 w-4" />
                       </Button>
@@ -163,7 +163,7 @@ export function Tasbih() {
                         variant="ghost"
                         size="icon"
                         onClick={() => removeTasbihCounter(counter.id)}
-                        className="h-8 w-8 text-destructive hover:bg-destructive/10"
+                        className="h-8 w-8 text-red-400 hover:bg-red-900/40"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -172,31 +172,31 @@ export function Tasbih() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center">
-                    <div className="mb-2 text-6xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">
+                    <div className="mb-2 text-6xl font-bold tabular-nums text-amber-300">
                       {counter.count}
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-emerald-100/80">
                       {t.tasbih.of} {counter.target}
                     </p>
                   </div>
 
                   <Progress
                     value={progress}
-                    className="h-2 bg-emerald-100 dark:bg-emerald-900/30"
+                    className="h-2 bg-emerald-900/60"
                   />
 
                   <Button
                     onClick={() => handleCount(counter.id)}
                     disabled={isComplete}
-                    className="h-24 w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-xl font-semibold hover:from-emerald-700 hover:to-teal-700 disabled:from-gray-400 disabled:to-gray-500"
+                    className="h-24 w-full bg-gradient-to-r from-amber-500 via-emerald-500 to-teal-600 text-xl font-semibold text-black hover:from-amber-400 hover:via-emerald-500 hover:to-teal-600 disabled:from-gray-500 disabled:to-gray-600"
                     size="lg"
                   >
                     {isComplete ? `✓ ${t.tasbih.complete}` : t.tasbih.tapToCount}
                   </Button>
 
                   {isComplete && (
-                    <div className="rounded-lg bg-gradient-to-r from-emerald-100 to-teal-100 p-3 text-center shadow-md dark:from-emerald-900/30 dark:to-teal-900/30">
-                      <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">
+                    <div className="rounded-lg bg-gradient-to-r from-amber-500/20 via-emerald-500/10 to-teal-500/20 p-3 text-center shadow-md">
+                      <p className="text-sm font-medium text-amber-100">
                         {t.tasbih.targetReached}
                       </p>
                     </div>
@@ -210,4 +210,3 @@ export function Tasbih() {
     </div>
   );
 }
-

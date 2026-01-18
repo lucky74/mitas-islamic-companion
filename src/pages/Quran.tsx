@@ -302,8 +302,8 @@ export function Quran() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 via-background to-teal-50/30 dark:from-emerald-950/20 dark:via-background dark:to-teal-950/10">
-      <header className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-500 to-teal-600 px-6 pb-8 pt-6 text-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60 pb-20 geometric-bg-soft">
+      <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-emerald-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
         <div className="absolute inset-0 opacity-10">
           <img
             src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
@@ -315,21 +315,25 @@ export function Quran() {
         <div className="relative">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src="/assets/generated/quran-icon-transparent.dim_64x64.png" alt="" className="h-10 w-10 brightness-0 invert" />
-              <h1 className="text-2xl font-bold">{t.quran.title}</h1>
+              <img
+                src="/assets/generated/quran-icon-transparent.dim_64x64.png"
+                alt=""
+                className="h-10 w-10 rounded-full border-2 border-amber-500/70 bg-black/40 p-1 shadow-lg"
+              />
+              <h1 className="text-2xl font-bold text-amber-100">{t.quran.title}</h1>
             </div>
             <div className="flex items-center gap-1">
               <LanguageSelector />
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative mt-2">
             <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white/60" />
             <Input
               placeholder={t.quran.search}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border-white/20 bg-white/10 pl-10 text-white placeholder:text-white/60 focus:bg-white/20"
+              className="border border-amber-500/40 bg-black/50 pl-10 text-amber-50 placeholder:text-emerald-100/60 shadow-md focus:bg-black/70"
             />
           </div>
         </div>
@@ -337,7 +341,7 @@ export function Quran() {
 
       <div className="px-6 py-6 pb-24">
         <Tabs defaultValue="surahs">
-          <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900/30">
+          <TabsList className="grid w-full grid-cols-2 border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-emerald-900/80">
             <TabsTrigger value="surahs" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-teal-600 data-[state=active]:text-white">
               <Book className="mr-2 h-4 w-4" />
               {t.quran.surahList}
@@ -354,7 +358,10 @@ export function Quran() {
                 {loading ? (
                   <>
                     {[...Array(10)].map((_, i) => (
-                      <Card key={i} className="border-emerald-200 dark:border-emerald-800">
+                      <Card
+                        key={i}
+                        className="ornament-card-soft border-emerald-500/50 bg-gradient-to-br from-black/85 via-emerald-950/95 to-emerald-900/90"
+                      >
                         <CardContent className="p-4">
                           <Skeleton className="h-16 w-full" />
                         </CardContent>
@@ -365,20 +372,22 @@ export function Quran() {
                   filteredSurahs.map((surah) => (
                     <Card
                       key={surah.number}
-                      className="cursor-pointer border-emerald-200 bg-gradient-to-r from-white to-emerald-50/50 shadow-md transition-all hover:scale-[1.02] hover:border-emerald-400 hover:shadow-lg dark:border-emerald-800 dark:from-card dark:to-emerald-950/20 dark:hover:border-emerald-600"
+                      className="ornament-card-soft cursor-pointer border-emerald-500/60 bg-gradient-to-br from-black/85 via-emerald-950/95 to-emerald-900/90 shadow-xl transition-all hover:scale-[1.02] hover:border-amber-400 hover:shadow-2xl"
                       onClick={() => handleSurahClick(surah.number)}
                     >
                       <CardContent className="flex items-center gap-4 p-4">
-                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 font-bold text-white shadow-md">
+                        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-teal-500 to-amber-400 font-bold text-black shadow-md">
                           {surah.number}
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-emerald-900 dark:text-emerald-100">{surah.englishName}</h3>
-                          <p className="text-sm text-muted-foreground">
+                          <h3 className="font-semibold text-emerald-50">{surah.englishName}</h3>
+                          <p className="text-sm text-emerald-100/80">
                             {surah.englishNameTranslation} • {surah.numberOfAyahs} {t.quran.ayat}
                           </p>
                         </div>
-                        <div className="text-right text-xl font-arabic text-emerald-800 dark:text-emerald-200">{surah.name}</div>
+                        <div className="text-right text-xl font-arabic text-amber-200">
+                          {surah.name}
+                        </div>
                       </CardContent>
                     </Card>
                   ))
@@ -390,23 +399,28 @@ export function Quran() {
           <TabsContent value="bookmarks" className="mt-4">
             <ScrollArea className="h-[calc(100vh-280px)]">
               {!bookmarks || bookmarks.length === 0 ? (
-                <Card className="border-emerald-200 dark:border-emerald-800">
+                <Card className="ornament-card-soft border-amber-500/40 bg-black/70">
                   <CardContent className="p-8 text-center">
-                    <Bookmark className="mx-auto mb-4 h-12 w-12 text-emerald-400" />
-                    <p className="text-muted-foreground">{t.quran.noBookmarks}</p>
+                    <Bookmark className="mx-auto mb-4 h-12 w-12 text-amber-400" />
+                    <p className="text-sm text-emerald-100/80">{t.quran.noBookmarks}</p>
                   </CardContent>
                 </Card>
               ) : (
                 <div className="space-y-3 pb-4">
                   {bookmarks.map((bookmark, index) => (
-                    <Card key={index} className="border-emerald-200 bg-gradient-to-r from-white to-emerald-50/50 shadow-md dark:border-emerald-800 dark:from-card dark:to-emerald-950/20">
+                    <Card
+                      key={index}
+                      className="ornament-card-soft border-emerald-500/60 bg-gradient-to-br from-black/85 via-emerald-950/95 to-emerald-900/90 shadow-xl"
+                    >
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="font-semibold text-emerald-900 dark:text-emerald-100">
+                            <h3 className="font-semibold text-emerald-50">
                               Surah {Number(bookmark.surah)}, {t.quran.ayat} {Number(bookmark.ayah)}
                             </h3>
-                            <p className="text-sm text-muted-foreground">{bookmark.description}</p>
+                            <p className="text-sm text-emerald-100/80">
+                              {bookmark.description}
+                            </p>
                           </div>
                           <Button
                             variant="ghost"
@@ -430,7 +444,7 @@ export function Quran() {
       <Dialog open={!!selectedSurah} onOpenChange={handleCloseDialog}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <DialogContent className="max-h-[85vh] max-w-2xl border-emerald-200 dark:border-emerald-800">
+          <DialogContent className="ornament-card ornament-corner max-h-[85vh] max-w-2xl">
             <DialogHeader>
               <DialogTitle className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
@@ -492,10 +506,10 @@ export function Quran() {
                     return (
                       <div
                         key={ayah.number}
-                        className={`rounded-lg border p-4 transition-all ${
+                        className={`rounded-2xl border-2 p-4 transition-all ornament-inner-border ${
                           isCurrentlyPlaying
-                            ? 'border-emerald-400 bg-gradient-to-r from-emerald-50 to-teal-50 shadow-md dark:border-emerald-600 dark:from-emerald-900/30 dark:to-teal-900/30'
-                            : 'bg-card/50 dark:bg-card/40'
+                            ? 'border-amber-400 bg-gradient-to-r from-emerald-900/60 via-emerald-800/80 to-amber-800/60 shadow-xl'
+                            : 'border-emerald-700/70 bg-black/60 shadow-md'
                         }`}
                       >
                         <div className="mb-2 flex items-center justify-between">

@@ -46,7 +46,7 @@ function App() {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <I18nProvider>
-        <div className="flex min-h-screen flex-col bg-background">
+        <div className="flex min-h-screen flex-col bg-gradient-to-b from-black via-slate-950 to-emerald-950">
           <main className="flex-1 pb-20">{renderPage()}</main>
           <BottomNav />
           <Toaster />

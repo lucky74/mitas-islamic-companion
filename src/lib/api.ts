@@ -342,7 +342,8 @@ export async function fetchNearbyMosques(
         continue;
       }
 
-      const name = element.tags?.name || element.tags?.['name:id'] || 'Masjid';
+      const rawName = element.tags?.name || element.tags?.['name:id'];
+      const name = rawName && rawName.trim().length > 0 ? rawName : 'Masjid tanpa nama';
 
       const distance = calculateDistance(latitude, longitude, lat, lon);
 
@@ -370,4 +371,3 @@ export async function fetchNearbyMosques(
     return [];
   }
 }
-
