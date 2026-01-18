@@ -364,7 +364,7 @@ function getTranslations(lang: Language): Translations {
         },
         visionTitle: 'Visi Teknis',
         vision:
-          'Desain bersih, dukungan global, dan semangat amal jariyah untuk kemudahan ibadah umat Muslim di seluruh dunia.',
+          'Menghadirkan teknologi yang memperkuat tali persatuan umat dan memudahkan akses Al‑Qur\'an serta ibadah harian, sejalan dengan pesan Surah Ali Imran ayat 103 tentang berpegang teguh pada tali Allah dan tidak bercerai-berai.',
         copyright: '© 2025. Dibuat oleh MITAS',
       },
       common: {

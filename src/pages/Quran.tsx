@@ -492,8 +492,8 @@ export function Quran() {
                 ))}
               </div>
             ) : (
-              <ScrollArea className="max-h-[60vh]">
-                <div className="space-y-6 pr-4">
+              <ScrollArea className="max-h-[70vh]">
+                <div className="space-y-6 pr-4 pb-6">
                   {selectedSurah?.arabic.ayahs.map((ayah: any, index: number) => {
                     const indonesianAyah = selectedSurah.indonesian.ayahs[index];
                     const isBookmarked = bookmarks?.some(

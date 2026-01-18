@@ -114,7 +114,7 @@ function DoaPagiPetangSection() {
 
         <TabsContent value={activeDoaTab} className="mt-4">
           <ScrollArea className="h-[calc(100vh-380px)]">
-            <div className="space-y-3 pr-4">
+            <div className="space-y-3 pr-4 pb-6">
               {currentData.map((dua, index) => (
                 <Card
                   key={index}
@@ -271,40 +271,42 @@ export function Doa() {
 
           <TabsContent value="doa" className="mt-4">
             <ScrollArea className="h-[calc(100vh-280px)]">
-              <Accordion type="single" collapsible className="space-y-3">
-                {DOA_HARIAN.map((doa, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`doa-${index}`}
-                    className="rounded-lg border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-emerald-900/90 shadow-xl"
-                  >
-                    <AccordionTrigger className="px-4 hover:no-underline">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 text-sm font-bold text-black shadow-md">
-                          {index + 1}
+              <div className="pr-4 pb-6">
+                <Accordion type="single" collapsible className="space-y-3">
+                  {DOA_HARIAN.map((doa, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`doa-${index}`}
+                      className="rounded-lg border border-amber-500/40 bg-gradient-to-r from-black/80 via-emerald-950/90 to-emerald-900/90 shadow-xl"
+                    >
+                      <AccordionTrigger className="px-4 hover:no-underline">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 text-sm font-bold text-black shadow-md">
+                            {index + 1}
+                          </div>
+                          <span className="flex-1 text-left font-semibold text-amber-100">
+                            {doa.title}
+                          </span>
                         </div>
-                        <span className="flex-1 text-left font-semibold text-amber-100">
-                          {doa.title}
-                        </span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <div className="space-y-4">
-                        <div className="rounded-lg bg-emerald-900/40 p-4">
-                          <p className="font-arabic text-2xl leading-loose text-foreground">
-                            {doa.arabic}
-                          </p>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4">
+                        <div className="space-y-4">
+                          <div className="rounded-lg bg-emerald-900/40 p-4">
+                            <p className="font-arabic text-2xl leading-loose text-foreground">
+                              {doa.arabic}
+                            </p>
+                          </div>
+                          <div className="rounded-lg bg-black/60 p-4">
+                            <p className="text-sm text-emerald-100/80">
+                              {doa.translation}
+                            </p>
+                          </div>
                         </div>
-                        <div className="rounded-lg bg-black/60 p-4">
-                          <p className="text-sm text-emerald-100/80">
-                            {doa.translation}
-                          </p>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
             </ScrollArea>
           </TabsContent>
         </Tabs>

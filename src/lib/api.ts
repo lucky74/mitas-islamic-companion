@@ -368,6 +368,9 @@ export async function fetchNearbyMosques(
     return mosques;
   } catch (error) {
     console.error('Error fetching nearby mosques:', error);
-    return [];
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error('Error fetching nearby mosques');
   }
 }
