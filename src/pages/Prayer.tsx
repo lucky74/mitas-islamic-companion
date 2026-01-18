@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -56,6 +56,8 @@ export function Prayer() {
   const [locationName, setLocationName] = useState<string>('');
   const [nearbyMosques, setNearbyMosques] = useState<Mosque[]>([]);
   const [mosquesLoading, setMosquesLoading] = useState(false);
+  const [remindersEnabled, setRemindersEnabled] = useState(false);
+  const notificationTimeoutsRef = useRef<number[]>([]);
 
   const loadNearbyMosques = async (latitude: number, longitude: number) => {
     try {
@@ -204,6 +206,97 @@ export function Prayer() {
       ]
     : [];
 
+  const schedulePrayerReminders = () => {
+    if (!prayerData) return;
+    if (typeof window === 'undefined') return;
+    if (typeof Notification === 'undefined') {
+      toast.error(t.prayer.remindersNotSupported);
+      return;
+    }
+
+    notificationTimeoutsRef.current.forEach((id) => window.clearTimeout(id));
+    notificationTimeoutsRef.current = [];
+
+    const now = new Date();
+    const today = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
+
+    const entries = [
+      { key: 'Fajr', label: t.prayer.fajr },
+      { key: 'Dhuhr', label: t.prayer.dhuhr },
+      { key: 'Asr', label: t.prayer.asr },
+      { key: 'Maghrib', label: t.prayer.maghrib },
+      { key: 'Isha', label: t.prayer.isha },
+    ] as const;
+
+    entries.forEach((entry) => {
+      const timeString = prayerData.timings[entry.key];
+      if (!timeString) return;
+      const [hours, minutes] = timeString.split(':').map(Number);
+      if (Number.isNaN(hours) || Number.isNaN(minutes)) return;
+
+      const target = new Date(today);
+      target.setHours(hours, minutes, 0, 0);
+
+      if (target <= now) return;
+
+      const delay = target.getTime() - now.getTime();
+
+      const timeoutId = window.setTimeout(() => {
+        if (Notification.permission === 'granted') {
+          new Notification('Waktunya Sholat', {
+            body: entry.label,
+            icon: '/assets/generated/app-icon.dim_512x512.png',
+          });
+        }
+      }, delay);
+
+      notificationTimeoutsRef.current.push(timeoutId);
+    });
+
+    if (notificationTimeoutsRef.current.length > 0) {
+      toast.success(t.prayer.remindersActive);
+    }
+  };
+
+  const handleToggleReminders = async () => {
+    if (!remindersEnabled) {
+      if (typeof window === 'undefined' || typeof Notification === 'undefined') {
+        toast.error(t.prayer.remindersNotSupported);
+        return;
+      }
+
+      if (Notification.permission !== 'granted') {
+        const result = await Notification.requestPermission();
+        if (result !== 'granted') {
+          toast.error(t.prayer.remindersNotSupported);
+          return;
+        }
+      }
+
+      setRemindersEnabled(true);
+      schedulePrayerReminders();
+    } else {
+      notificationTimeoutsRef.current.forEach((id) => window.clearTimeout(id));
+      notificationTimeoutsRef.current = [];
+      setRemindersEnabled(false);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      notificationTimeoutsRef.current.forEach((id) => window.clearTimeout(id));
+      notificationTimeoutsRef.current = [];
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60">
       <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-emerald-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
@@ -284,6 +377,24 @@ export function Prayer() {
       </header>
 
       <div className="px-6 py-6">
+        <div className="mb-4 rounded-lg border border-amber-500/40 bg-gradient-to-r from-black/70 via-emerald-950/80 to-emerald-900/80 p-3 text-xs text-amber-50">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex-1">
+              <p className="font-semibold">{t.prayer.remindersTitle}</p>
+              <p className="text-[11px] text-emerald-100/80">
+                {t.prayer.enableReminders}
+              </p>
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleToggleReminders}
+              className="border-amber-500/70 bg-black/40 px-3 text-[11px] text-amber-50 hover:bg-amber-900/40"
+            >
+              {remindersEnabled ? t.prayer.disableReminders : t.prayer.enableReminders}
+            </Button>
+          </div>
+        </div>
         <Card className="ornament-card ornament-inner-border">
           <CardHeader className="border-b border-amber-500/40">
             <CardTitle className="text-amber-100">{t.prayer.todaySchedule}</CardTitle>

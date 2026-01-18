@@ -25,6 +25,11 @@ export interface Translations {
     alQuran: string;
     doaHadith: string;
     digitalTasbih: string;
+    hilalStatusTitle: string;
+    hilalUnityHeading: string;
+    hilalWaitingHeading: string;
+    hilalUnityStatus: string;
+    hilalWaitingStatus: string;
   };
   prayer: {
     title: string;
@@ -36,6 +41,11 @@ export interface Translations {
     todaySchedule: string;
     qiblaDirection: string;
     next: string;
+    remindersTitle: string;
+    enableReminders: string;
+    disableReminders: string;
+    remindersActive: string;
+    remindersNotSupported: string;
     fajr: string;
     sunrise: string;
     dhuhr: string;
@@ -239,6 +249,13 @@ function getTranslations(lang: Language): Translations {
         alQuran: 'Al-Quran',
         doaHadith: 'Doa & Hadits',
         digitalTasbih: 'Tasbih Digital',
+        hilalStatusTitle: 'Status Hilal Global MITAS',
+        hilalUnityHeading: 'STATUS: GLOBAL UNITY (BERSATU)',
+        hilalWaitingHeading: 'STATUS: MENUNGGU VERIFIKASI',
+        hilalUnityStatus:
+          'Berdasarkan data MITAS, hilal sudah tervalidasi di wilayah Barat. Wilayah timur yang sudah masuk malam disarankan mengikuti satu awal bulan global.',
+        hilalWaitingStatus:
+          'Saat ini hilal belum mencapai kriteria minimal di titik rujukan utama. Harap menunggu laporan rukyat fisik dari tim lapangan atau genapkan 30 hari.',
       },
       prayer: {
         title: 'Waktu Sholat',
@@ -250,6 +267,11 @@ function getTranslations(lang: Language): Translations {
         todaySchedule: 'Jadwal Sholat Hari Ini',
         qiblaDirection: 'Arah Kiblat',
         next: 'Berikutnya',
+        remindersTitle: 'Pengingat Sholat',
+        enableReminders: 'Aktifkan pengingat sholat hari ini',
+        disableReminders: 'Nonaktifkan pengingat sholat',
+        remindersActive: 'Pengingat sholat aktif untuk hari ini',
+        remindersNotSupported: 'Perangkat tidak mendukung notifikasi.',
         fajr: 'Subuh',
         sunrise: 'Terbit',
         dhuhr: 'Dzuhur',
@@ -404,6 +426,13 @@ function getTranslations(lang: Language): Translations {
         alQuran: 'Al-Quran',
         doaHadith: 'Dua & Hadith',
         digitalTasbih: 'Digital Tasbih',
+        hilalStatusTitle: 'MITAS Global Hilal Status',
+        hilalUnityHeading: 'STATUS: GLOBAL UNITY',
+        hilalWaitingHeading: 'STATUS: AWAITING VERIFICATION',
+        hilalUnityStatus:
+          'Based on MITAS data, the crescent has been validated in western reference regions. Eastern regions that have entered the night are recommended to follow a unified global start of the month.',
+        hilalWaitingStatus:
+          'The crescent has not yet reached the minimum criteria at key reference points. Please wait for physical sighting reports or complete 30 days.',
       },
       prayer: {
         title: 'Prayer Times',
@@ -415,6 +444,11 @@ function getTranslations(lang: Language): Translations {
         todaySchedule: "Today's Prayer Schedule",
         qiblaDirection: 'Qibla Direction',
         next: 'Next',
+        remindersTitle: 'Prayer Reminders',
+        enableReminders: 'Enable prayer reminders for today',
+        disableReminders: 'Disable prayer reminders',
+        remindersActive: 'Prayer reminders are active for today',
+        remindersNotSupported: 'This device does not support notifications.',
         fajr: 'Fajr',
         sunrise: 'Sunrise',
         dhuhr: 'Dhuhr',
@@ -572,6 +606,13 @@ function getTranslations(lang: Language): Translations {
         alQuran: '古兰经',
         doaHadith: '祷告与圣训',
         digitalTasbih: '数字念珠',
+        hilalStatusTitle: 'MITAS 新月状态',
+        hilalUnityHeading: '状态：全球统一',
+        hilalWaitingHeading: '状态：等待验证',
+        hilalUnityStatus:
+          '根据 MITAS 数据，新月已在西部参考区域得到验证。已入夜的东部地区建议遵循统一的全球月初。',
+        hilalWaitingStatus:
+          '目前新月在主要参考点尚未达到最低标准。请等待现场目视报告或满 30 天。',
       },
       prayer: {
         title: '祈祷时间',
@@ -583,6 +624,11 @@ function getTranslations(lang: Language): Translations {
         todaySchedule: '今日祈祷时间表',
         qiblaDirection: '朝拜方向',
         next: '下一个',
+        remindersTitle: '祈祷提醒',
+        enableReminders: '开启今天的祈祷提醒',
+        disableReminders: '关闭祈祷提醒',
+        remindersActive: '今天的祈祷提醒已开启',
+        remindersNotSupported: '设备不支持通知功能。',
         fajr: '晨礼',
         sunrise: '日出',
         dhuhr: '晌礼',
@@ -739,6 +785,13 @@ function getTranslations(lang: Language): Translations {
         alQuran: 'القرآن الكريم',
         doaHadith: 'الدعاء والحديث',
         digitalTasbih: 'التسبيح الرقمي',
+        hilalStatusTitle: 'حالة الهلال العالمية (MITAS)',
+        hilalUnityHeading: 'الحالة: وحدة عالمية',
+        hilalWaitingHeading: 'الحالة: في انتظار التحقق',
+        hilalUnityStatus:
+          'استنادًا إلى بيانات MITAS، تم تحقق رؤية الهلال في المناطق المرجعية الغربية. يُنصح المناطق الشرقية التي دخل عليها الليل باتباع بداية شهر موحدة عالميًا.',
+        hilalWaitingStatus:
+          'لم يصل الهلال بعد إلى الحد الأدنى من المعايير في نقاط المرجع الرئيسية. يرجى انتظار تقارير الرؤية الميدانية أو إكمال ٣٠ يومًا.',
       },
       prayer: {
         title: 'أوقات الصلاة',
@@ -750,6 +803,11 @@ function getTranslations(lang: Language): Translations {
         todaySchedule: 'جدول الصلاة اليوم',
         qiblaDirection: 'اتجاه القبلة',
         next: 'التالي',
+        remindersTitle: 'تنبيهات الصلاة',
+        enableReminders: 'تفعيل تنبيهات الصلاة لليوم',
+        disableReminders: 'إيقاف تنبيهات الصلاة',
+        remindersActive: 'تنبيهات الصلاة مفعّلة لليوم',
+        remindersNotSupported: 'هذا الجهاز لا يدعم الإشعارات.',
         fajr: 'الفجر',
         sunrise: 'الشروق',
         dhuhr: 'الظهر',

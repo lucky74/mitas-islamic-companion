@@ -15,6 +15,114 @@ import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
+type HilalCity = {
+  name: string;
+  lat: number;
+  lon: number;
+  type: string;
+};
+
+type HilalMonitor = HilalCity & {
+  alt: number;
+  elong: number;
+  label: string;
+  color: string;
+  unity: boolean;
+};
+
+const hilalCities: HilalCity[] = [
+  { name: 'Jayapura, ID', lat: -2.5, lon: 140.7, type: 'East' },
+  { name: 'Jakarta, ID', lat: -6.2, lon: 106.8, type: 'East' },
+  { name: 'Makkah, SA', lat: 21.4, lon: 39.8, type: 'West-Center' },
+  { name: 'Istanbul, TR', lat: 41.0, lon: 28.9, type: 'West-Center' },
+  { name: 'Casablanca, MA', lat: 33.5, lon: -7.5, type: 'West' },
+  { name: 'New York, US', lat: 40.7, lon: -74.0, type: 'West' },
+];
+
+function calculateHilalAstro(city: HilalCity) {
+  const baseAlt = 1.8;
+  const lonShift = (140 - city.lon) * 0.065;
+  return {
+    alt: parseFloat((baseAlt + lonShift).toFixed(2)),
+    elong: parseFloat((baseAlt + 4.2 + lonShift).toFixed(2)),
+  };
+}
+
+function getHilalVisStatus(alt: number, elong: number) {
+  if (alt >= 3 && elong >= 6.4) return { label: 'TERLIHAT', color: '#00ff88', unity: true };
+  if (alt > 0) return { label: 'PERLU ALAT', color: '#ffcc00', unity: false };
+  return { label: 'ISTIKMAL', color: '#ff4d4d', unity: false };
+}
+
+function HilalStatusCard() {
+  const { t } = useI18n();
+  const [monitorData, setMonitorData] = useState<HilalMonitor[]>([]);
+  const [globalUnityActive, setGlobalUnityActive] = useState(false);
+
+  useEffect(() => {
+    const results: HilalMonitor[] = hilalCities.map((city) => {
+      const astro = calculateHilalAstro(city);
+      const status = getHilalVisStatus(astro.alt, astro.elong);
+      return { ...city, ...astro, ...status };
+    });
+
+    setMonitorData(results);
+
+    const isVisibleInWest = results.some((d) => d.lon <= 45 && d.label === 'TERLIHAT');
+    if (isVisibleInWest) {
+      setGlobalUnityActive(true);
+    }
+  }, []);
+
+  if (!monitorData.length) {
+    return null;
+  }
+
+  return (
+    <div className="mt-4 space-y-3 text-left">
+      <div className="rounded-lg bg-black/40 p-3 text-xs text-emerald-100">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-200">
+          {t.home.hilalStatusTitle}
+        </p>
+        <p className="mt-1 text-[11px] font-semibold">
+          {globalUnityActive ? t.home.hilalUnityHeading : t.home.hilalWaitingHeading}
+        </p>
+        <p className="mt-1 text-[11px] text-emerald-200/90">
+          {globalUnityActive ? t.home.hilalUnityStatus : t.home.hilalWaitingStatus}
+        </p>
+      </div>
+      <div className="overflow-x-auto rounded-lg border border-emerald-500/30 bg-black/40">
+        <table className="min-w-full text-[11px]">
+          <thead>
+            <tr className="border-b border-emerald-500/40 bg-emerald-900/60 text-emerald-100">
+              <th className="px-2 py-1 text-left">Location</th>
+              <th className="px-2 py-1 text-center">Alt</th>
+              <th className="px-2 py-1 text-center">Elong</th>
+              <th className="px-2 py-1 text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {monitorData.map((loc) => (
+              <tr key={loc.name} className="border-b border-emerald-800/40 last:border-b-0">
+                <td className="px-2 py-1 text-emerald-100">{loc.name}</td>
+                <td className="px-2 py-1 text-center text-emerald-100">
+                  {loc.alt.toFixed(2)}°
+                </td>
+                <td className="px-2 py-1 text-center text-emerald-100">
+                  {loc.elong.toFixed(2)}°
+                </td>
+                <td className="px-2 py-1 text-center font-semibold" style={{ color: loc.color }}>
+                  {loc.label}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export function Home() {
   const { selectedCity, setCurrentPage, prayerMethod } = useAppStore();
   const { t } = useI18n();
@@ -135,12 +243,15 @@ export function Home() {
           </Card>
         ) : prayerData ? (
           <Card className="ornament-card">
-            <CardContent className="p-4 text-center">
-              <p className="text-sm font-medium text-amber-200">{t.home.hijriDate}</p>
-              <p className="text-lg font-semibold text-amber-50">
-                {prayerData.date.hijri.day} {prayerData.date.hijri.month.en}{' '}
-                {prayerData.date.hijri.year}
-              </p>
+            <CardContent className="space-y-3 p-4">
+              <div className="text-center">
+                <p className="text-sm font-medium text-amber-200">{t.home.hijriDate}</p>
+                <p className="text-lg font-semibold text-amber-50">
+                  {prayerData.date.hijri.day} {prayerData.date.hijri.month.en}{' '}
+                  {prayerData.date.hijri.year}
+                </p>
+              </div>
+              <HilalStatusCard />
             </CardContent>
           </Card>
         ) : null}
