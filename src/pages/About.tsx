@@ -24,7 +24,7 @@ export function About() {
               src="/mitas-logo.png"
               alt="MITAS Logo"
               className="h-10 w-10 rounded-full border-2 border-emerald-700 shadow-lg"
-            <div>
+            />
             <div>
               <h1 className="text-xl font-bold text-white">{t.about.title}</h1>
               <p className="text-xs text-emerald-100">{t.about.appName}</p>
