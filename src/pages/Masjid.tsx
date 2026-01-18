@@ -16,7 +16,7 @@ export function Masjid() {
   const { data: mosques, isLoading: isLoadingMosques, error: mosquesError } = useNearbyMosques(
     location?.latitude ?? null,
     location?.longitude ?? null,
-    500
+    1000
   );
 
   useEffect(() => {
@@ -57,15 +57,15 @@ export function Masjid() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-950">
-      <header className="sticky top-0 z-40 border-b border-emerald-800/30 bg-gradient-to-r from-emerald-900/95 to-teal-900/95 backdrop-blur supports-[backdrop-filter]:bg-emerald-900/80">
+    <div className="min-h-screen bg-gradient-to-b from-black via-slate-950 to-emerald-950">
+      <header className="sticky top-0 z-40 border-b border-amber-500/30 bg-gradient-to-r from-black/95 via-slate-950/95 to-emerald-950/95 backdrop-blur supports-[backdrop-filter]:bg-black/80">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700/30 backdrop-blur-sm">
-              <MapPin className="h-5 w-5 text-amber-400" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-emerald-600 shadow-lg">
+              <MapPin className="h-5 w-5 text-black" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">{t.masjid.title}</h1>
+              <h1 className="text-xl font-bold text-amber-300">{t.masjid.title}</h1>
               <p className="text-xs text-emerald-200">{t.masjid.subtitle}</p>
             </div>
           </div>
@@ -75,24 +75,24 @@ export function Masjid() {
 
       <main className="container mx-auto px-4 py-6 pb-24">
         {isLoadingLocation && (
-          <Card className="border-emerald-800/50 bg-emerald-900/50 backdrop-blur-sm">
+          <Card className="border-amber-500/40 bg-gradient-to-br from-emerald-950/70 via-slate-950/80 to-black/90 backdrop-blur-sm">
             <CardContent className="flex items-center justify-center gap-3 py-8">
               <Loader2 className="h-6 w-6 animate-spin text-amber-400" />
-              <p className="text-emerald-100">{t.masjid.searchingLocation}</p>
+              <p className="text-amber-100">{t.masjid.searchingLocation}</p>
             </CardContent>
           </Card>
         )}
 
         {locationError && !isLoadingLocation && (
-          <Alert className="border-red-800/50 bg-red-900/30 backdrop-blur-sm">
-            <AlertCircle className="h-5 w-5 text-red-400" />
-            <AlertDescription className="text-red-100">
+          <Alert className="border-red-700/60 bg-gradient-to-r from-red-950/80 via-red-900/70 to-amber-900/60 backdrop-blur-sm">
+            <AlertCircle className="h-5 w-5 text-amber-400" />
+            <AlertDescription className="text-amber-100">
               {locationError}
               <Button
                 onClick={requestLocation}
                 variant="outline"
                 size="sm"
-                className="ml-4 border-red-700 bg-red-800/50 text-red-100 hover:bg-red-700/50"
+                className="ml-4 border-amber-500 bg-black/40 text-amber-100 hover:bg-amber-800/40"
               >
                 <Navigation className="mr-2 h-4 w-4" />
                 {t.masjid.enableLocation}
@@ -102,16 +102,16 @@ export function Masjid() {
         )}
 
         {location && isLoadingMosques && (
-          <Card className="mt-4 border-emerald-800/50 bg-emerald-900/50 backdrop-blur-sm">
+          <Card className="mt-4 border-amber-500/40 bg-gradient-to-br from-emerald-950/70 via-slate-950/80 to-black/90 backdrop-blur-sm">
             <CardContent className="flex items-center justify-center gap-3 py-8">
               <Loader2 className="h-6 w-6 animate-spin text-amber-400" />
-              <p className="text-emerald-100">{t.masjid.fetchingMosques}</p>
+              <p className="text-amber-100">{t.masjid.fetchingMosques}</p>
             </CardContent>
           </Card>
         )}
 
         {mosquesError && location && !isLoadingMosques && (
-          <Alert className="mt-4 border-amber-800/50 bg-amber-900/30 backdrop-blur-sm">
+          <Alert className="mt-4 border-amber-700/60 bg-gradient-to-r from-amber-950/80 via-amber-900/70 to-emerald-900/60 backdrop-blur-sm">
             <AlertCircle className="h-5 w-5 text-amber-400" />
             <AlertDescription className="text-amber-100">
               {t.masjid.apiError}
@@ -120,29 +120,35 @@ export function Masjid() {
         )}
 
         {location && !isLoadingMosques && mosques && mosques.length > 0 && (
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 space-y-4">
             {mosques.map((mosque) => (
               <Card
                 key={mosque.id}
-                className="border-emerald-800/50 bg-emerald-900/50 backdrop-blur-sm transition-all hover:bg-emerald-800/50"
+                className="border-amber-500/30 bg-gradient-to-br from-black/90 via-slate-950/90 to-emerald-950/90 backdrop-blur-sm transition-all hover:border-amber-400/60 hover:shadow-xl"
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-start gap-3 text-lg">
-                    <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-amber-400" />
-                    <span className="text-emerald-50">{mosque.name}</span>
+                    <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-emerald-600">
+                      <MapPin className="h-4 w-4 flex-shrink-0 text-black" />
+                    </div>
+                    <span className="text-amber-100">{mosque.name}</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 pt-0">
                   <div className="flex items-center gap-2 text-sm text-emerald-200">
-                    <Navigation className="h-4 w-4 text-emerald-400" />
+                    <Navigation className="h-4 w-4 text-amber-400" />
                     <span>
-                      {t.masjid.distance}: <span className="font-semibold text-amber-300">{mosque.distance}m</span>
+                      {t.masjid.distance}:{' '}
+                      <span className="font-semibold text-amber-300">{mosque.distance}m</span>
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-emerald-200">
-                    <Clock className="h-4 w-4 text-emerald-400" />
+                    <Clock className="h-4 w-4 text-amber-400" />
                     <span>
-                      {t.masjid.walkingTime}: <span className="font-semibold text-amber-300">{mosque.walkingTime} {t.masjid.minutes}</span>
+                      {t.masjid.walkingTime}:{' '}
+                      <span className="font-semibold text-amber-300">
+                        {mosque.walkingTime} {t.masjid.minutes}
+                      </span>
                     </span>
                   </div>
                 </CardContent>
@@ -152,19 +158,18 @@ export function Masjid() {
         )}
 
         {location && !isLoadingMosques && mosques && mosques.length === 0 && !mosquesError && (
-          <Card className="mt-4 border-emerald-800/50 bg-emerald-900/50 backdrop-blur-sm">
+          <Card className="mt-4 border-amber-500/40 bg-gradient-to-br from-black/90 via-slate-950/90 to-emerald-950/90 backdrop-blur-sm">
             <CardContent className="flex flex-col items-center justify-center gap-3 py-8 text-center">
-              <MapPin className="h-12 w-12 text-emerald-600" />
-              <p className="text-emerald-200">{t.masjid.noMosquesFound}</p>
+              <MapPin className="h-12 w-12 text-amber-500" />
+              <p className="text-amber-100">{t.masjid.noMosquesFound}</p>
             </CardContent>
           </Card>
         )}
       </main>
 
-      <footer className="fixed bottom-16 left-0 right-0 border-t border-emerald-800/30 bg-emerald-950/80 py-3 text-center backdrop-blur-sm">
-        <p className="text-xs text-emerald-300">{t.about.copyright}</p>
+      <footer className="fixed bottom-16 left-0 right-0 border-t border-amber-500/30 bg-black/80 py-3 text-center backdrop-blur-sm">
+        <p className="text-xs text-amber-200">{t.about.copyright}</p>
       </footer>
     </div>
   );
 }
-

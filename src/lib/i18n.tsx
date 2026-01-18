@@ -262,13 +262,13 @@ function getTranslations(lang: Language): Translations {
       },
       masjid: {
         title: 'Masjid Terdekat',
-        subtitle: 'Temukan masjid dalam radius 500 meter',
+        subtitle: 'Temukan masjid dalam radius 1000 meter',
         searchingLocation: 'Mencari lokasi Anda...',
         fetchingMosques: 'Mencari masjid terdekat...',
         distance: 'Jarak',
         walkingTime: 'Waktu Jalan',
         minutes: 'menit',
-        noMosquesFound: 'Tidak ada masjid ditemukan dalam radius 500m',
+        noMosquesFound: 'Tidak ada masjid ditemukan dalam radius 1000m',
         locationError: 'Gagal mendapatkan lokasi. Pastikan GPS aktif dan izin lokasi diberikan.',
         locationDenied: 'Izin lokasi ditolak. Mohon aktifkan izin lokasi untuk menemukan masjid terdekat.',
         enableLocation: 'Aktifkan Lokasi',
@@ -427,13 +427,13 @@ function getTranslations(lang: Language): Translations {
       },
       masjid: {
         title: 'Nearby Mosques',
-        subtitle: 'Find mosques within 500 meters',
+        subtitle: 'Find mosques within 1000 meters',
         searchingLocation: 'Finding your location...',
         fetchingMosques: 'Searching for nearby mosques...',
         distance: 'Distance',
         walkingTime: 'Walking Time',
         minutes: 'min',
-        noMosquesFound: 'No mosques found within 500m radius',
+        noMosquesFound: 'No mosques found within 1000m radius',
         locationError:
           'Failed to get location. Make sure GPS is active and location permission is granted.',
         locationDenied:
@@ -762,13 +762,13 @@ function getTranslations(lang: Language): Translations {
       },
       masjid: {
         title: 'المساجد القريبة',
-        subtitle: 'ابحث عن المساجد في نطاق 500 متر',
+        subtitle: 'ابحث عن المساجد في نطاق 1000 متر',
         searchingLocation: 'جارٍ العثور على موقعك...',
         fetchingMosques: 'جارٍ البحث عن المساجد القريبة...',
         distance: 'المسافة',
         walkingTime: 'وقت المشي',
         minutes: 'دقيقة',
-        noMosquesFound: 'لم يتم العثور على مساجد في نطاق 500 متر',
+        noMosquesFound: 'لم يتم العثور على مساجد في نطاق 1000 متر',
         locationError:
           'فشل الحصول على الموقع. تأكد من تفعيل GPS ومنح إذن الموقع.',
         locationDenied:
@@ -890,4 +890,3 @@ function getTranslations(lang: Language): Translations {
 
   return translations[lang];
 }
-

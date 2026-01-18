@@ -132,7 +132,11 @@ export function useSavePreferences() {
   });
 }
 
-export function useNearbyMosques(latitude: number | null, longitude: number | null, radiusMeters: number = 500) {
+export function useNearbyMosques(
+  latitude: number | null,
+  longitude: number | null,
+  radiusMeters: number = 1000
+) {
   return useQuery<Mosque[]>({
     queryKey: ['nearbyMosques', latitude, longitude, radiusMeters],
     queryFn: async () => {
@@ -146,4 +150,3 @@ export function useNearbyMosques(latitude: number | null, longitude: number | nu
     retry: 2,
   });
 }
-
