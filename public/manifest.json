@@ -1,0 +1,21 @@
+{
+  "name": "MITAS - Islamic Companion",
+  "short_name": "MITAS",
+  "description": "Aplikasi pendamping Muslim dengan waktu sholat, Al-Quran, doa harian, dan tasbih digital",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2d7a4f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/generated/app-icon.dim_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "education"],
+  "lang": "id",
+  "dir": "ltr"
+}
