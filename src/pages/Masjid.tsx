@@ -12,6 +12,7 @@ export function Masjid() {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [coordInfo, setCoordInfo] = useState<string | null>(null);
 
   const { data: mosques, isLoading: isLoadingMosques, error: mosquesError } = useNearbyMosques(
     location?.latitude ?? null,
@@ -32,12 +33,20 @@ export function Masjid() {
     setIsLoadingLocation(true);
     setLocationError(null);
 
+    const options: PositionOptions = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    };
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        const { latitude, longitude } = position.coords;
         setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude,
+          longitude,
         });
+        setCoordInfo(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
         setIsLoadingLocation(false);
       },
       (error) => {
@@ -48,12 +57,19 @@ export function Masjid() {
         }
         setIsLoadingLocation(false);
       },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 300000,
-      }
+      options
     );
+  };
+
+  const openGoogleMapsSearch = () => {
+    if (!location) {
+      requestLocation();
+      return;
+    }
+
+    const { latitude, longitude } = location;
+    const url = `https://www.google.com/maps/search/Masjid+terdekat/@${latitude},${longitude},16z`;
+    window.open(url, '_blank');
   };
 
   return (
@@ -74,6 +90,25 @@ export function Masjid() {
       </header>
 
       <main className="container mx-auto px-4 py-6 pb-24">
+        <Card className="mb-4 border-amber-500/40 bg-gradient-to-br from-emerald-950/70 via-slate-950/80 to-black/90 backdrop-blur-sm">
+          <CardContent className="space-y-3 py-4 text-center">
+            <p className="text-sm text-amber-100">
+              Klik tombol di bawah untuk membuka pencarian <span className="font-semibold">masjid terdekat</span> di Google Maps berdasarkan titik GPS Anda saat ini.
+            </p>
+            <Button
+              onClick={openGoogleMapsSearch}
+              className="w-full bg-amber-500 text-black hover:bg-amber-400"
+            >
+              <MapPin className="mr-2 h-4 w-4" />
+              Buka Masjid Terdekat di Google Maps
+            </Button>
+            {coordInfo && (
+              <p className="text-xs text-emerald-200">
+                Koordinat terdeteksi: {coordInfo}
+              </p>
+            )}
+          </CardContent>
+        </Card>
         {isLoadingLocation && (
           <Card className="border-amber-500/40 bg-gradient-to-br from-emerald-950/70 via-slate-950/80 to-black/90 backdrop-blur-sm">
             <CardContent className="flex items-center justify-center gap-3 py-8">
