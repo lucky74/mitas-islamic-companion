@@ -39,12 +39,115 @@ const hilalCities: HilalCity[] = [
   { name: 'New York, US', lat: 40.7, lon: -74.0, type: 'West' },
 ];
 
+type Equatorial = {
+  ra: number;
+  dec: number;
+};
+
+function toJulian(date: Date) {
+  return date.getTime() / 86400000 - date.getTimezoneOffset() / 1440 + 2440587.5;
+}
+
+function normalizeAngle(deg: number) {
+  return ((deg % 360) + 360) % 360;
+}
+
+function sunEclipticPosition(jd: number) {
+  const T = (jd - 2451545.0) / 36525;
+  const M = normalizeAngle(357.52911 + 35999.05029 * T - 0.0001537 * T * T);
+  const L0 = normalizeAngle(280.46646 + 36000.76983 * T + 0.0003032 * T * T);
+  const Mrad = (Math.PI / 180) * M;
+  const C =
+    (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(Mrad) +
+    (0.019993 - 0.000101 * T) * Math.sin(2 * Mrad) +
+    0.000289 * Math.random() * 0 + 0.000289 * Math.sin(3 * Mrad);
+  const trueLon = normalizeAngle(L0 + C);
+  return { lon: trueLon, lat: 0 };
+}
+
+function moonEclipticPosition(jd: number) {
+  const T = (jd - 2451545.0) / 36525;
+  const L0 = normalizeAngle(218.3164477 + 481267.88123421 * T);
+  const D = normalizeAngle(297.8501921 + 445267.1114034 * T);
+  const M = normalizeAngle(357.5291092 + 35999.0502909 * T);
+  const Mprime = normalizeAngle(134.9633964 + 477198.8675055 * T);
+  const F = normalizeAngle(93.272095 + 483202.0175233 * T);
+  const RAD = Math.PI / 180;
+  const Dr = D * RAD;
+  const Mr = M * RAD;
+  const Mpr = Mprime * RAD;
+  const Fr = F * RAD;
+  const lon =
+    L0 +
+    6.289 * Math.sin(Mpr) +
+    1.274 * Math.sin(2 * Dr - Mpr) +
+    0.658 * Math.sin(2 * Dr) +
+    0.214 * Math.sin(2 * Mpr) +
+    0.11 * Math.sin(Dr);
+  const lat =
+    5.128 * Math.sin(Fr) +
+    0.28 * Math.sin(Mpr + Fr) +
+    0.277 * Math.sin(Mpr - Fr) +
+    0.173 * Math.sin(2 * Dr - Fr);
+  return { lon: normalizeAngle(lon), lat };
+}
+
+function eclipticToEquatorial(lonDeg: number, latDeg: number): Equatorial {
+  const RAD = Math.PI / 180;
+  const eps = 23.439291 * RAD;
+  const lonRad = lonDeg * RAD;
+  const latRad = latDeg * RAD;
+  const sinDec =
+    Math.sin(latRad) * Math.cos(eps) +
+    Math.cos(latRad) * Math.sin(eps) * Math.sin(lonRad);
+  const dec = Math.asin(sinDec);
+  const y =
+    Math.sin(lonRad) * Math.cos(eps) -
+    Math.tan(latRad) * Math.sin(eps);
+  const x = Math.cos(lonRad);
+  const ra = Math.atan2(y, x);
+  return { ra, dec };
+}
+
+function angularSeparation(a: Equatorial, b: Equatorial) {
+  const cosD =
+    Math.sin(a.dec) * Math.sin(b.dec) +
+    Math.cos(a.dec) * Math.cos(b.dec) * Math.cos(a.ra - b.ra);
+  const d = Math.acos(Math.min(1, Math.max(-1, cosD)));
+  return (180 / Math.PI) * d;
+}
+
 function calculateHilalAstro(city: HilalCity) {
-  const baseAlt = 1.8;
-  const lonShift = (140 - city.lon) * 0.065;
+  const now = new Date();
+  const jd = toJulian(now);
+  const sunEcl = sunEclipticPosition(jd);
+  const moonEcl = moonEclipticPosition(jd);
+  const sunEq = eclipticToEquatorial(sunEcl.lon, sunEcl.lat);
+  const moonEq = eclipticToEquatorial(moonEcl.lon, moonEcl.lat);
+  const elong = angularSeparation(sunEq, moonEq);
+  const RAD = Math.PI / 180;
+  const alt0 = -0.833 * RAD;
+  const phi = city.lat * RAD;
+  const sinAlt0 = Math.sin(alt0);
+  const sinPhi = Math.sin(phi);
+  const cosPhi = Math.cos(phi);
+  const sinDecSun = Math.sin(sunEq.dec);
+  const cosDecSun = Math.cos(sunEq.dec);
+  const cosH0 =
+    (sinAlt0 - sinPhi * sinDecSun) / (cosPhi * cosDecSun || 1e-9);
+  const clippedCosH0 = Math.min(1, Math.max(-1, cosH0));
+  const H0 = Math.acos(clippedCosH0);
+  const deltaRa = sunEq.ra - moonEq.ra;
+  const Hmoon = H0 + deltaRa;
+  const sinDecMoon = Math.sin(moonEq.dec);
+  const cosDecMoon = Math.cos(moonEq.dec);
+  const sinAltMoon =
+    sinPhi * sinDecMoon + cosPhi * cosDecMoon * Math.cos(Hmoon);
+  const altMoon = Math.asin(sinAltMoon);
+  const altDeg = (180 / Math.PI) * altMoon;
   return {
-    alt: parseFloat((baseAlt + lonShift).toFixed(2)),
-    elong: parseFloat((baseAlt + 4.2 + lonShift).toFixed(2)),
+    alt: parseFloat(altDeg.toFixed(2)),
+    elong: parseFloat(elong.toFixed(2)),
   };
 }
 
