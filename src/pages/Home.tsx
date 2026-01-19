@@ -194,7 +194,10 @@ function HilalStatusCard() {
           {globalUnityActive ? t.home.hilalUnityStatus : t.home.hilalWaitingStatus}
         </p>
         <p className="mt-2 text-[11px] text-emerald-200/80">
-          Hasil ini merupakan hisab astronomi MITAS, bukan penetapan resmi awal bulan. Untuk penentuan puasa dan hari raya, tetap ikuti keputusan ulama dan pemerintah setempat.
+          Berdasarkan hisab ketinggian dan elongasi bulan, bukan penetapan resmi awal bulan.
+        </p>
+        <p className="mt-1 text-[11px] text-emerald-200/80">
+          Untuk ibadah puasa dan hari raya, sebagian ulama berpendapat bahwa rukyat di satu wilayah dapat berlaku global.
         </p>
         <p className="mt-1 text-[10px] leading-relaxed text-emerald-200/70">
           "Apabila bulan telah masuk kedua puluh sembilan malam (dari bulan Sya&apos;ban). Maka janganlah kalian berpuasa hingga melihat Hilal. Dan apabila mendung, sempurnakanlah bulan Sya&apos;ban menjadi tiga puluh hari" (HR. Bukhari no. 1907 - Muslim no. 1080)
