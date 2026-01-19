@@ -202,7 +202,7 @@ export function Home() {
 
           <div className="mb-4 flex items-center justify-center gap-3">
             <img
-              src="/assets/generated/app-icon.dim_512x512.png"
+              src="/mitas-logo.png"
               alt="MITAS Logo"
               className="h-12 w-12 rounded-full border-2 border-amber-500/80 object-contain shadow-lg"
             />
