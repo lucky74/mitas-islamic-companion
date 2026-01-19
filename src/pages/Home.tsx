@@ -193,6 +193,12 @@ function HilalStatusCard() {
         <p className="mt-1 text-[11px] text-emerald-200/90">
           {globalUnityActive ? t.home.hilalUnityStatus : t.home.hilalWaitingStatus}
         </p>
+        <p className="mt-2 text-[11px] text-emerald-200/80">
+          Hasil ini merupakan hisab astronomi MITAS, bukan penetapan resmi awal bulan. Untuk penentuan puasa dan hari raya, tetap ikuti keputusan ulama dan pemerintah setempat.
+        </p>
+        <p className="mt-1 text-[10px] leading-relaxed text-emerald-200/70">
+          "Apabila bulan telah masuk kedua puluh sembilan malam (dari bulan Sya&apos;ban). Maka janganlah kalian berpuasa hingga melihat Hilal. Dan apabila mendung, sempurnakanlah bulan Sya&apos;ban menjadi tiga puluh hari" (HR. Bukhari no. 1907 - Muslim no. 1080)
+        </p>
       </div>
       <div className="overflow-x-auto rounded-lg border border-emerald-500/30 bg-black/40">
         <table className="min-w-full text-[11px]">
