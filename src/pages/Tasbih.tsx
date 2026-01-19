@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Plus, RotateCcw, Trash2 } from 'lucide-react';
+import { CircleDot, Plus, RotateCcw, Trash2 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import {
   Dialog,
@@ -59,22 +59,12 @@ export function Tasbih() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60">
       <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-teal-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
-
         <div className="relative">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img
-                src="/assets/generated/tasbih-icon.dim_64x64.png"
-                alt=""
-                className="h-10 w-10 rounded-full border-2 border-amber-500/70 bg-black/40 p-1 shadow-lg"
-              />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-500/70 bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 p-1 shadow-lg">
+                <CircleDot className="h-6 w-6 text-black" />
+              </div>
               <h1 className="text-2xl font-bold text-amber-100">{t.tasbih.title}</h1>
             </div>
             <LanguageSelector />

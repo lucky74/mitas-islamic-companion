@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Book, Bookmark, Search, BookmarkPlus, Volume2, X, Headphones, Pause } from 'lucide-react';
+import { Book, BookOpen, Bookmark, Search, BookmarkPlus, Volume2, X, Headphones, Pause } from 'lucide-react';
 import { fetchAllSurahs, fetchSurah } from '@/lib/api';
 import { useBookmarks, useAddBookmark, useRemoveBookmark } from '@/hooks/useQueries';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -304,22 +304,12 @@ export function Quran() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60 pb-20 geometric-bg-soft">
       <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-emerald-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
-
         <div className="relative">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img
-                src="/assets/generated/quran-icon-transparent.dim_64x64.png"
-                alt=""
-                className="h-10 w-10 rounded-full border-2 border-amber-500/70 bg-black/40 p-1 shadow-lg"
-              />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-500/70 bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 p-1 shadow-lg">
+                <BookOpen className="h-6 w-6 text-black" />
+              </div>
               <h1 className="text-2xl font-bold text-amber-100">{t.quran.title}</h1>
             </div>
             <div className="flex items-center gap-1">

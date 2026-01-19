@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Clock, MapPin, Moon, Sun } from 'lucide-react';
+import { Clock, MapPin, Moon, Sun, BookOpen, Heart, CircleDot } from 'lucide-react';
 import {
   fetchPrayerTimes,
   getNextPrayer,
@@ -202,7 +202,7 @@ export function Home() {
 
           <div className="mb-4 flex items-center justify-center gap-3">
             <img
-              src="/mitas-logo.png"
+              src="/assets/generated/app-icon.dim_512x512.png"
               alt="MITAS Logo"
               className="h-12 w-12 rounded-full border-2 border-amber-500/80 object-contain shadow-lg"
             />
@@ -304,11 +304,7 @@ export function Home() {
           >
             <CardHeader className="pb-3">
               <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 via-emerald-500 to-emerald-700 shadow-md transition-transform group-hover:scale-110">
-                <img
-                  src="/assets/generated/mosque-silhouette.dim_400x300.png"
-                  alt=""
-                  className="h-9 w-9 brightness-0 invert"
-                />
+                <Clock className="h-8 w-8 text-black" />
               </div>
               <CardTitle className="text-base font-semibold text-amber-100">
                 {t.home.prayerTimes}
@@ -322,11 +318,7 @@ export function Home() {
           >
             <CardHeader className="pb-3">
               <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 shadow-md transition-transform group-hover:scale-110">
-                <img
-                  src="/assets/generated/quran-icon-transparent.dim_64x64.png"
-                  alt=""
-                  className="h-9 w-9 brightness-0 invert"
-                />
+                <BookOpen className="h-8 w-8 text-black" />
               </div>
               <CardTitle className="text-base font-semibold text-amber-100">
                 {t.home.alQuran}
@@ -340,11 +332,7 @@ export function Home() {
           >
             <CardHeader className="pb-3">
               <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 via-emerald-500 to-amber-600 shadow-md transition-transform group-hover:scale-110">
-                <img
-                  src="/assets/generated/kaaba-icon-transparent.dim_64x64.png"
-                  alt=""
-                  className="h-9 w-9 brightness-0 invert"
-                />
+                <Heart className="h-8 w-8 text-black" />
               </div>
               <CardTitle className="text-base font-semibold text-amber-100">
                 {t.home.doaHadith}
@@ -358,11 +346,7 @@ export function Home() {
           >
             <CardHeader className="pb-3">
               <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 via-emerald-500 to-teal-600 shadow-md transition-transform group-hover:scale-110">
-                <img
-                  src="/assets/generated/tasbih-icon.dim_64x64.png"
-                  alt=""
-                  className="h-9 w-9 brightness-0 invert"
-                />
+                <CircleDot className="h-8 w-8 text-black" />
               </div>
               <CardTitle className="text-base font-semibold text-amber-100">
                 {t.home.digitalTasbih}

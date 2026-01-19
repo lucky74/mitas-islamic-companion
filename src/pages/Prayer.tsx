@@ -300,14 +300,6 @@ export function Prayer() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black/40 via-slate-950/70 to-emerald-950/60">
       <header className="relative overflow-hidden border-b border-amber-500/40 bg-gradient-to-br from-black via-emerald-950 to-emerald-800 px-6 pb-8 pt-6 text-amber-100 shadow-2xl ornament-header-arch">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="/assets/generated/islamic-pattern-bg.dim_800x600.png"
-            alt=""
-            className="h-full w-full object-cover"
-          />
-        </div>
-        
         <div className="relative">
           <div className="mb-6 flex items-center justify-between">
             <h1 className="text-2xl font-bold text-amber-100">{t.prayer.title}</h1>
@@ -321,13 +313,24 @@ export function Prayer() {
             <Label htmlFor="use-gps" className="flex-1 text-sm font-medium">
               {t.prayer.useGPS}
             </Label>
-            <Switch
-              id="use-gps"
-              checked={useGeolocation}
-              onCheckedChange={handleToggleGeolocation}
-              disabled={locationLoading}
-              className="data-[state=checked]:bg-amber-500"
-            />
+            <div className="flex items-center gap-2">
+              <span
+                className={
+                  useGeolocation
+                    ? 'text-xs font-semibold text-amber-300'
+                    : 'text-xs font-semibold text-red-300'
+                }
+              >
+                {useGeolocation ? 'ON' : 'OFF'}
+              </span>
+              <Switch
+                id="use-gps"
+                checked={useGeolocation}
+                onCheckedChange={handleToggleGeolocation}
+                disabled={locationLoading}
+                className={useGeolocation ? "!bg-amber-500" : "!bg-red-600"}
+              />
+            </div>
           </div>
 
           {!useGeolocation ? (
@@ -462,7 +465,9 @@ export function Prayer() {
               <DialogHeader>
                 <DialogTitle className="text-emerald-900 dark:text-emerald-100">{t.prayer.qiblaDirection}</DialogTitle>
               </DialogHeader>
-              <QiblaCompass />
+              <div className="flex justify-center">
+                <QiblaCompass />
+              </div>
             </DialogContent>
           </Dialog>
         </div>

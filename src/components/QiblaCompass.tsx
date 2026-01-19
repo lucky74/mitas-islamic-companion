@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Navigation } from 'lucide-react';
+import { Navigation, Compass } from 'lucide-react';
 import { calculateQiblaDirection, getUserLocation } from '@/lib/qibla';
 import { toast } from 'sonner';
 
@@ -85,11 +85,7 @@ export function QiblaCompass() {
       {!qiblaDirection ? (
         <div className="text-center">
           <div className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-emerald-900/80 dark:bg-emerald-950/80">
-            <img
-              src="/assets/generated/compass-rose.dim_200x200.png"
-              alt="Compass"
-              className="h-24 w-24 opacity-50"
-            />
+            <Compass className="h-20 w-20 text-emerald-300 opacity-80" />
           </div>
           <p className="mb-4 text-sm text-muted-foreground">
             Izinkan akses lokasi dan orientasi perangkat untuk menampilkan arah kiblat
@@ -102,17 +98,7 @@ export function QiblaCompass() {
       ) : (
         <div className="relative">
           <div className="relative h-64 w-64">
-            <div className="absolute inset-0 rounded-full border-4 border-emerald-600/40 bg-gradient-to-br from-emerald-900/90 to-emerald-950/90 shadow-xl dark:from-emerald-950/95 dark:to-slate-950/95">
-              <img
-                src="/assets/generated/compass-rose.dim_200x200.png"
-                alt="Compass"
-                className="h-full w-full opacity-20"
-                style={{
-                  transform: `rotate(${-deviceHeading}deg)`,
-                  transition: 'transform 0.3s ease-out',
-                }}
-              />
-            </div>
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-600/40 bg-gradient-to-br from-emerald-900/90 to-emerald-950/90 shadow-xl dark:from-emerald-950/95 dark:to-slate-950/95" />
 
             <div
               className="absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-out"
@@ -120,11 +106,7 @@ export function QiblaCompass() {
             >
               <div className="absolute top-4 flex flex-col items-center">
                 <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500 shadow-lg ring-2 ring-amber-300">
-                  <img
-                    src="/assets/generated/kaaba-icon-transparent.dim_64x64.png"
-                    alt="Kaaba"
-                    className="h-8 w-8"
-                  />
+                  <Navigation className="h-7 w-7 text-black" />
                 </div>
                 <div className="h-20 w-1 bg-gradient-to-b from-amber-500 to-amber-600 shadow-lg"></div>
               </div>
@@ -161,4 +143,3 @@ export function QiblaCompass() {
     </div>
   );
 }
-
