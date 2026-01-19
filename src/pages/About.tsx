@@ -54,20 +54,21 @@ export function About() {
             </p>
           </div>
 
-          <div className="mb-6 space-y-3 border-t border-emerald-700/60 pt-4">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-emerald-100/90">
-                Pengembang:
+          <div className="mb-6 space-y-6 border-t border-emerald-700/60 pt-6 text-center">
+            <div className="space-y-1">
+              <span className="block text-xs font-medium uppercase tracking-widest text-emerald-400">
+                Pengembang
               </span>
-              <span className="text-amber-200">
+              <span className="block text-lg font-bold text-amber-100">
                 {t.about.developer}
               </span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-emerald-100/90">
-                Author / Founder:
+
+            <div className="space-y-1">
+              <span className="block text-xs font-medium uppercase tracking-widest text-emerald-400">
+                Author / Founder
               </span>
-              <span className="text-amber-200">
+              <span className="block text-lg font-bold text-amber-100">
                 {t.about.author}
               </span>
             </div>
