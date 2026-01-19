@@ -441,11 +441,14 @@ export function Quran() {
         </Tabs>
       </div>
 
+      {/* Surah Detail Dialog with Fixes for Scrolling */}
       <Dialog open={!!selectedSurah} onOpenChange={handleCloseDialog}>
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <DialogContent className="ornament-card ornament-corner max-h-[85vh] max-w-2xl">
-            <DialogHeader>
+          
+          <DialogContent className="flex flex-col h-[85vh] max-w-2xl gap-0 p-0 border-emerald-200 dark:border-emerald-800 bg-white dark:bg-slate-950">
+            
+            <DialogHeader className="p-6 pb-2 shrink-0">
               <DialogTitle className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <span className="text-emerald-900 dark:text-emerald-100">
@@ -485,87 +488,67 @@ export function Quran() {
               </DialogTitle>
             </DialogHeader>
 
-            {surahLoading ? (
-              <div className="space-y-4">
-                {[...Array(5)].map((_, i) => (
-                  <Skeleton key={i} className="h-24 w-full" />
-                ))}
-              </div>
-            ) : (
-              <ScrollArea className="max-h-[55vh]">
-                <div className="space-y-6 pr-4 pb-6">
-                  {selectedSurah?.arabic.ayahs.map((ayah: any, index: number) => {
-                    const indonesianAyah = selectedSurah.indonesian.ayahs[index];
-                    const isBookmarked = bookmarks?.some(
-                      (b) =>
-                        Number(b.surah) === selectedSurah.arabic.number &&
-                        Number(b.ayah) === ayah.numberInSurah
-                    );
-                    const isCurrentlyPlaying = isAudioPlaying && currentAyahIndex === index;
+            <div className="flex-1 overflow-hidden">
+              {surahLoading ? (
+                <div className="space-y-4 p-6">
+                  {[...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="h-24 w-full" />
+                  ))}
+                </div>
+              ) : (
+                <ScrollArea className="h-full w-full">
+                  <div className="space-y-6 p-6 pt-2">
+                    {selectedSurah?.arabic.ayahs.map((ayah: any, index: number) => {
+                      const indonesianAyah = selectedSurah.indonesian.ayahs[index];
+                      const isBookmarked = bookmarks?.some(
+                        (b) => Number(b.surah) === selectedSurah.arabic.number && Number(b.ayah) === ayah.numberInSurah
+                      );
+                      const isCurrentlyPlaying = isAudioPlaying && currentAyahIndex === index;
 
-                    return (
-                      <div
-                        key={ayah.number}
-                        className={`rounded-2xl border-2 p-4 transition-all ornament-inner-border ${
-                          isCurrentlyPlaying
-                            ? 'border-amber-400 bg-gradient-to-r from-emerald-900/60 via-emerald-800/80 to-amber-800/60 shadow-xl'
-                            : 'border-emerald-700/70 bg-black/60 shadow-md'
-                        }`}
-                      >
-                        <div className="mb-2 flex items-center justify-between">
-                          <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-                            {t.quran.ayat} {ayah.numberInSurah}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => {
-                                const newIndex = index;
-                                setCurrentAyahIndex(newIndex);
-                                setIsAudioPlaying(true);
-                              }}
-                              className={`h-8 w-8 rounded-full text-emerald-700 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-900/50 ${
-                                isCurrentlyPlaying ? 'bg-emerald-100 dark:bg-emerald-900/50' : ''
-                              }`}
-                              title={t.quran.playAyah}
-                            >
-                              <Volume2 className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() =>
-                                handleBookmark(selectedSurah.arabic.number, ayah.numberInSurah)
-                              }
-                              className={`h-8 w-8 rounded-full text-emerald-700 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-900/50 ${
-                                isBookmarked ? 'text-amber-500' : ''
-                              }`}
-                              title={
-                                isBookmarked ? t.quran.bookmarkRemoveLabel : t.quran.bookmarkAddLabel
-                              }
-                            >
-                              {isBookmarked ? (
-                                <Bookmark className="h-4 w-4 fill-current" />
-                              ) : (
-                                <BookmarkPlus className="h-4 w-4" />
+                      return (
+                        <div 
+                          key={ayah.number} 
+                          className={`rounded-lg border p-4 transition-all ${
+                            isCurrentlyPlaying 
+                              ? 'border-emerald-400 bg-gradient-to-r from-emerald-50 to-teal-50 shadow-md dark:border-emerald-600 dark:from-emerald-900/30 dark:to-teal-900/30' 
+                              : 'border-emerald-200 bg-white dark:border-emerald-800 dark:bg-card'
+                          }`}
+                        >
+                          <div className="mb-3 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
+                                isCurrentlyPlaying 
+                                  ? 'bg-gradient-to-br from-emerald-600 to-teal-600 text-white shadow-md' 
+                                  : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                              }`}>
+                                {ayah.numberInSurah}
+                              </span>
+                              {isCurrentlyPlaying && (
+                                <Volume2 className="h-4 w-4 animate-pulse text-emerald-600 dark:text-emerald-400" />
                               )}
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleBookmark(selectedSurah.arabic.number, ayah.numberInSurah)}
+                              className="text-emerald-600 hover:bg-emerald-100 hover:text-emerald-700 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
+                            >
+                              <BookmarkPlus className={`h-5 w-5 ${isBookmarked ? 'fill-current' : ''}`} />
                             </Button>
                           </div>
+                          <p className="mb-4 text-right text-2xl leading-loose font-arabic text-emerald-900 dark:text-emerald-100">
+                            {ayah.text}
+                          </p>
+                          <p className="text-sm text-emerald-800 dark:text-emerald-200">
+                            {indonesianAyah?.text}
+                          </p>
                         </div>
-
-                        <p className="mb-3 text-right text-2xl leading-loose font-arabic text-emerald-900 dark:text-emerald-100">
-                          {ayah.text}
-                        </p>
-                        <p className="text-sm text-emerald-800 dark:text-emerald-200">
-                          {indonesianAyah?.text}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </ScrollArea>
-            )}
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
           </DialogContent>
         </DialogPrimitive.Portal>
       </Dialog>
